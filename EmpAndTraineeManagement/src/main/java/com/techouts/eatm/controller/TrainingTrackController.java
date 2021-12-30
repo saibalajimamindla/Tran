@@ -16,7 +16,7 @@ import com.techouts.eatm.service.TechnologyService;
 import com.techouts.eatm.service.TrainingTrackService;
 
 @RestController
-@RequestMapping("/TraingTrack")
+@RequestMapping("/traingtrack")
 public class TrainingTrackController {
 
 	@Autowired
