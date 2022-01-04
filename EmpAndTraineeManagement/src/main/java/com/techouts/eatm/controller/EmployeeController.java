@@ -61,12 +61,12 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public EmployeeDto getEmployees(@PathVariable Long id) {
 	return 	employeeService.getEmployeeById(id);
 	}
 
-	@GetMapping("/{name}")
+	@GetMapping("/get/{name}")
 	public EmployeeDto getEmployees(@PathVariable String name)  {
 		return employeeService.getEmployeeByName(name);
 

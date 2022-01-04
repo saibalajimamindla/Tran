@@ -38,7 +38,7 @@ public class EmployeeService {
 			Employee employee = new Employee();
 			employee.setEmpId(dto.getEmpId());
 			employee.setEmpName(dto.getEmpName());
-			String pattern = "MM/dd/yyyy";
+			String pattern = "dd/mm/yyyy";
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date date = null;
 			try {
@@ -58,7 +58,7 @@ public class EmployeeService {
 			return employeeConvertor.modelToDto(employeeDao.save(employee));
 		} else {
 			checkEmployee.setEmpName(dto.getEmpName());
-			String pattern = "MM/dd/yyyy";
+			String pattern = "dd/mm/yyyy";
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date date = null;
 			try {
