@@ -5,69 +5,52 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.converter.EmployeeConvertor;
-import com.techouts.eatm.dao.EmployeeDao;
+import com.techouts.eatm.dao.EmployeeRepository;
 import com.techouts.eatm.dto.EmployeeDto;
-import com.techouts.eatm.service.EmployeeService;
+import com.techouts.eatm.service.EmployeeServiceImpl;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
 	@Autowired
-	EmployeeDao  employeeDao;
+	EmployeeRepository employeeDao;
 
 	@Autowired
-	EmployeeService employeeService;
+	EmployeeServiceImpl employeeService;
 
 	@Autowired
 	EmployeeConvertor employeeConvertor;
 
-	@GetMapping("/add")
-	public EmployeeDto getDto() {
+	@GetMapping("/")
+	public EmployeeDto getEmployee() {
 		return new EmployeeDto();
 	}
 
 	@PostMapping("/add")
-	@ResponseBody
-	public EmployeeDto addEmployee(@ModelAttribute EmployeeDto empdto){
-
+	public EmployeeDto addEmployee(@RequestBody EmployeeDto empdto) {
 		return employeeService.saveEmployee(empdto);
 	}
 
-	@ResponseBody
 	@DeleteMapping("/{id}")
 	public String removeEmployee(@PathVariable Long id) {
 		return employeeService.removeEmployee(id);
 	}
 
-	@GetMapping("/update/{name}")
-	public EmployeeDto updateEmployees(@PathVariable String name) {
-		return employeeService.getEmployeeByName(name);
-
+	@GetMapping("/id/{id}")
+	public EmployeeDto getEmployeeById(@PathVariable Long id) {
+		return employeeService.getEmployeeById(id);
 	}
 
-	@PutMapping("/update")
-	public EmployeeDto updateEmployee(@ModelAttribute EmployeeDto empdto) {
-		return employeeService.saveEmployee(empdto);
-
-	}
-
-	@GetMapping("/get/{id}")
-	public EmployeeDto getEmployees(@PathVariable Long id) {
-	return 	employeeService.getEmployeeById(id);
-	}
-
-	@GetMapping("/get/{name}")
-	public EmployeeDto getEmployees(@PathVariable String name)  {
+	@GetMapping("/name/{name}")
+	public EmployeeDto getEmployeeByName(@PathVariable String name) {
 		return employeeService.getEmployeeByName(name);
 
 	}
@@ -78,7 +61,7 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/all/{track}")
-	public List<EmployeeDto> getAllEmployees(@PathVariable String track)  {
+	public List<EmployeeDto> getAllEmployees(@PathVariable String track) {
 		return employeeService.getAllEmployeesByTrack(track);
 	}
 }

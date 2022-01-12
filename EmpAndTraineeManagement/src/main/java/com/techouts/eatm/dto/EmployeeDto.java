@@ -6,19 +6,21 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeDto implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private long empId;
-	
+
 	private String empName;
-	
+
 	private String dateOfJoining;
-	
+
 	private String trainingTrack;
+
+	private String trainingEndDate;
 
 	public long getEmpId() {
 		return empId;
@@ -52,10 +54,16 @@ public class EmployeeDto implements Serializable {
 		this.trainingTrack = trainingTrack;
 	}
 
+	public String getTrainingEndDate() {
+		return trainingEndDate;
+	}
+
+	public void setTrainingEndDate(String trainingEndDate) {
+		this.trainingEndDate = trainingEndDate;
+	}
+
 	public EmployeeDto() {
 		super();
 	}
-	
-	
-	
+
 }

@@ -1,9 +1,8 @@
 package com.techouts.eatm.converter;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -20,6 +19,7 @@ public class EmployeeConvertor {
 		dto.setEmpName(employee.getEmpName());
 		dto.setDateOfJoining(dateFormatter(employee.getDateOfJoining()));
 		dto.setTrainingTrack(employee.getTrainingTrack().getTrackName());
+		dto.setTrainingEndDate(dateFormatter(employee.getTrainingEndDate()));
 		return dto;
 
 	}
@@ -32,8 +32,9 @@ public class EmployeeConvertor {
 			EmployeeDto dto = new EmployeeDto();
 			dto.setEmpId(employee.getEmpId());
 			dto.setEmpName(employee.getEmpName());
-			dto.setDateOfJoining(employee.getDateOfJoining().toString());
+			dto.setDateOfJoining(dateFormatter(employee.getDateOfJoining()));
 			dto.setTrainingTrack(employee.getTrainingTrack().getTrackName());
+			dto.setTrainingEndDate(dateFormatter(employee.getTrainingEndDate()));
 			dtolist.add(dto);
 
 		}
@@ -41,9 +42,8 @@ public class EmployeeConvertor {
 
 	}
 
-	public static String dateFormatter(Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyy");
-		String strDate = dateFormat.format(date);
-		return strDate;
+	public static String dateFormatter(LocalDate date) {
+		return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(date).toString();
+
 	}
 }

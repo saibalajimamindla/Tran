@@ -12,46 +12,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.dto.TrainingTrackDto;
-import com.techouts.eatm.service.TechnologyService;
-import com.techouts.eatm.service.TrainingTrackService;
+import com.techouts.eatm.service.TechnologyServiceImpl;
+import com.techouts.eatm.service.TrainingTrackServiceImpl;
 
 @RestController
 @RequestMapping("/trainingtrack")
 public class TrainingTrackController {
 
 	@Autowired
-	TrainingTrackService trainingTrackService;
+	TrainingTrackServiceImpl trainingTrackService;
 
 	@Autowired
-	TechnologyService technologyService;
+	TechnologyServiceImpl technologyService;
 
 	@GetMapping("/")
 	public TrainingTrackDto getTraingTrack() {
 		TrainingTrackDto trackDto = new TrainingTrackDto();
-		trackDto.setTechnologies(technologyService.gettechnologysasArray());
+		trackDto.setTechnologies(technologyService.getTechnologysAsArray());
 		return trackDto;
 	}
 
 	@PostMapping("/add")
-	public TrainingTrackDto addTraingTracks(@RequestBody TrainingTrackDto trainingTrackDto) {
-		return trainingTrackService.savetracktoDatabase(trainingTrackDto);
+	public TrainingTrackDto addTraingTrack(@RequestBody TrainingTrackDto trainingTrackDto) {
+		return trainingTrackService.saveTrainingTrack(trainingTrackDto);
 	}
 
-	@DeleteMapping("/remove/{name}")
+	@DeleteMapping("/{name}")
 	public String removeTraingTrack(@PathVariable String name) {
-		return trainingTrackService.removeTrack(name);
+		return trainingTrackService.removeTrainingTrack(name);
 
 	}
 
-	@GetMapping("/get/{name}")
-	public TrainingTrackDto updateTraingTrack(@PathVariable String name) {
-		return trainingTrackService.getTrack(name);
+	@GetMapping("/name/{name}")
+	public TrainingTrackDto getTrainingTrackByName(@PathVariable String name) {
+		return trainingTrackService.getTrainingTrackByName(name);
 
 	}
 
 	@PostMapping("/all")
-	public List<TrainingTrackDto> getTraingTracks() {
-		return trainingTrackService.getTracks();
+	public List<TrainingTrackDto> getAllTraingTracks() {
+		return trainingTrackService.getAllTrainingTrack();
 	}
 
 }

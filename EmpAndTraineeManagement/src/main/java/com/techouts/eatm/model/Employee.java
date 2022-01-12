@@ -1,6 +1,6 @@
 package com.techouts.eatm.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,22 +15,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employees")
-public class Employee  {
+public class Employee {
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	
-	@Column(name ="emp_id",unique = true)
+
+	@Column(name = "emp_id", unique = true)
 	private long empId;
-	
-	@Column(unique = true,name = "emp_name")
+
+	@Column(unique = true, name = "emp_name")
 	private String empName;
-	
+
 	@Column(name = "date_of_joining")
-	private Date dateOfJoining;
-	
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinColumn(name ="track_id",referencedColumnName = "id")
+	private LocalDate dateOfJoining;
+
+	@Column(name = "training_end_date")
+	private LocalDate trainingEndDate;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "track_id", referencedColumnName = "id")
 	private TrainingTrack trainingTrack;
 
 	public long getEmpId() {
@@ -49,11 +52,11 @@ public class Employee  {
 		this.empName = empName;
 	}
 
-	public Date getDateOfJoining() {
+	public LocalDate getDateOfJoining() {
 		return dateOfJoining;
 	}
 
-	public void setDateOfJoining(Date dateOfJoining) {
+	public void setDateOfJoining(LocalDate dateOfJoining) {
 		this.dateOfJoining = dateOfJoining;
 	}
 
@@ -73,30 +76,16 @@ public class Employee  {
 		this.trainingTrack = trainingTrack;
 	}
 
-	public Employee(int empId, String empName, Date dateOfJoining) {
-		super();
-		this.empId = empId;
-		this.empName = empName;
-		this.dateOfJoining = dateOfJoining;
+	public LocalDate getTrainingEndDate() {
+		return trainingEndDate;
+	}
+
+	public void setTrainingEndDate(LocalDate trainingEndDate) {
+		this.trainingEndDate = trainingEndDate;
 	}
 
 	public Employee() {
 		super();
 	}
-
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", empId=" + empId + ", empName=" + empName + ", dateOfJoining=" + dateOfJoining
-				+ ", trainingTrack=" + trainingTrack + "]";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
