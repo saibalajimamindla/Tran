@@ -43,7 +43,6 @@ public class TrainingTrackService {
 
 			return trainingTrackConvertor.modelToDto(trainingTrackDao.save(trainingTrack));
 		}
-
 	}
 
 	public long technologyDayCount(Set<Technology> technologies) {
@@ -52,9 +51,7 @@ public class TrainingTrackService {
 			count = count + technology.getTechnologyduration();
 		}
 		return count;
-
 	}
-
 	public Set<Technology> getTechnologysFromArray(TrainingTrackDto trainingTrackDto) {
 		Set<Technology> technologies = new LinkedHashSet<Technology>();
 		String[] tech = trainingTrackDto.getTechnologies();

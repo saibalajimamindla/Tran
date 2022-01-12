@@ -32,19 +32,50 @@ public class EmployeeService {
 	@Autowired
 	EmployeeConvertor employeeConvertor;
 
+	/*
+	 * public EmployeeDto saveEmployee(EmployeeDto dto) { Employee checkEmployee =
+	 * employeeDao.getById(dto.getEmpId()); if (checkEmployee == null) { Employee
+	 * employee = new Employee(); employee.setEmpId(dto.getEmpId());
+	 * employee.setEmpName(dto.getEmpName()); String pattern = "MM/dd/yyyy";
+	 * SimpleDateFormat format = new SimpleDateFormat(pattern); Date date = null;
+	 * try { date = format.parse(dto.getDateOfJoining()); } catch (ParseException e)
+	 * {
+	 * 
+	 * e.printStackTrace();
+	 * logger.info("parse exception in employee date of joining"); }
+	 * employee.setDateOfJoining(date); if (dto.getTrainingTrack() != null) {
+	 * employee.setTrainingTrack(trainingTrackDao.findByName(dto.getTrainingTrack())
+	 * ); } else {
+	 * employee.setTrainingTrack(trainingTrackDao.findByName("default")); }
+	 * 
+	 * return employeeConvertor.modelToDto(employeeDao.save(employee)); } else {
+	 * checkEmployee.setEmpName(dto.getEmpName()); String pattern = "MM/dd/yyyy";
+	 * SimpleDateFormat format = new SimpleDateFormat(pattern); Date date = null;
+	 * try { date = format.parse(dto.getDateOfJoining()); } catch (ParseException e)
+	 * {
+	 * 
+	 * e.printStackTrace();
+	 * logger.info("parse exception in employee date of joining"); }
+	 * checkEmployee.setDateOfJoining(date);
+	 * checkEmployee.setTrainingTrack(trainingTrackDao.findByName(dto.
+	 * getTrainingTrack()));
+	 * 
+	 * return employeeConvertor.modelToDto(employeeDao.save(checkEmployee)); }
+	 * 
+	 * }
+	 */
 	public EmployeeDto saveEmployee(EmployeeDto dto) {
 		Employee checkEmployee = employeeDao.getById(dto.getEmpId());
 		if (checkEmployee == null) {
 			Employee employee = new Employee();
 			employee.setEmpId(dto.getEmpId());
 			employee.setEmpName(dto.getEmpName());
-			String pattern = "MM/dd/yyyy";
+			String pattern = "dd-mm-yyyy";
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date date = null;
 			try {
 				date = format.parse(dto.getDateOfJoining());
 			} catch (ParseException e) {
-
 				e.printStackTrace();
 				logger.info("parse exception in employee date of joining");
 			}
@@ -58,7 +89,7 @@ public class EmployeeService {
 			return employeeConvertor.modelToDto(employeeDao.save(employee));
 		} else {
 			checkEmployee.setEmpName(dto.getEmpName());
-			String pattern = "MM/dd/yyyy";
+			String pattern = "dd-mm-yyyy";
 			SimpleDateFormat format = new SimpleDateFormat(pattern);
 			Date date = null;
 			try {
@@ -80,12 +111,11 @@ public class EmployeeService {
 		Employee employee = employeeDao.getById(id);
 		if (employee != null) {
 			employee.setTrainingTrack(null);
-			Employee emp =	employeeDao.save(employee);
+			Employee emp = employeeDao.save(employee);
 			employeeDao.delete(emp);
-			
-			return employee.getEmpName()+" with "+employee.getEmpId()+" removed successfully";
-		}
-		else {
+
+			return employee.getEmpName() + " with " + employee.getEmpId() + " removed successfully";
+		} else {
 			return "Employee not found";
 		}
 
