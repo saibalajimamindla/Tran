@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.techouts.eatm.model.Role;
-import com.techouts.eatm.model.User;
+import com.techouts.eatm.entity.Role;
+import com.techouts.eatm.entity.User;
 
 @SuppressWarnings("serial")
 public class MyUserDetails implements UserDetails {

@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.techouts.eatm.config.MyUserDetails;
 import com.techouts.eatm.dao.UserRepository;
-import com.techouts.eatm.model.User;
+import com.techouts.eatm.entity.User;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 

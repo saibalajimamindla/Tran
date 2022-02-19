@@ -1,4 +1,4 @@
-package com.techouts.eatm.model;
+package com.techouts.eatm.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

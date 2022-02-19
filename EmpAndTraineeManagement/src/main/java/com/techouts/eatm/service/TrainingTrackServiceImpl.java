@@ -3,6 +3,7 @@ package com.techouts.eatm.service;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ import com.techouts.eatm.converter.TrainingTrackConvertor;
 import com.techouts.eatm.dao.TechnologyRepository;
 import com.techouts.eatm.dao.TrainingTrackRepository;
 import com.techouts.eatm.dto.TrainingTrackDto;
+import com.techouts.eatm.entity.Technology;
+import com.techouts.eatm.entity.TrainingTrack;
 import com.techouts.eatm.exception.ResourseNotFound;
-import com.techouts.eatm.model.Technology;
-import com.techouts.eatm.model.TrainingTrack;
 
 @Service
 public class TrainingTrackServiceImpl implements TrainingTrackService {
@@ -107,6 +108,12 @@ public class TrainingTrackServiceImpl implements TrainingTrackService {
 			trainingTrackDao.save(track);
 
 		}
+	}
+
+	@Override
+	public List<Technology> getTechnologiesFromtrack(TrainingTrack track) {
+		
+		 return track.getTechnologies().stream().collect(Collectors.toList());
 	}
 
 }

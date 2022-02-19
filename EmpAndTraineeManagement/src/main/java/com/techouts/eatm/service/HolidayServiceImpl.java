@@ -6,12 +6,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.techouts.eatm.model.Holiday;
+import com.techouts.eatm.entity.Holiday;
 
 @Service
-public class HolidayServiceImpl {
+public class HolidayServiceImpl implements HolidayService {
 	
-	
+	@Override
 	public List<LocalDate> getDatesFromHolidays(List<Holiday> holidays)
 	{
 		

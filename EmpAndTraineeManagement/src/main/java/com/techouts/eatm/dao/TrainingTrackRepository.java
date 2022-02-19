@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.techouts.eatm.model.TrainingTrack;
+import com.techouts.eatm.entity.TrainingTrack;
 
 @Repository
 public interface TrainingTrackRepository extends JpaRepository<TrainingTrack, Long> {

@@ -16,4 +16,6 @@ public interface TechnologyService {
 
 	public TechnologyDto getBytechnologyName(String Name);
 
+	String[] getTechnologysAsArray();
+
 }

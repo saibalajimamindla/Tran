@@ -8,7 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techouts.eatm.dto.EmployeeDto;
-import com.techouts.eatm.model.Employee;
+import com.techouts.eatm.entity.Employee;
 
 @Component
 public class EmployeeConvertor {
@@ -41,9 +41,9 @@ public class EmployeeConvertor {
 		return dtolist;
 
 	}
-
+	
 	public static String dateFormatter(LocalDate date) {
-		return DateTimeFormatter.ofPattern("dd/MM/yyyy").format(date).toString();
+		return DateTimeFormatter.ofPattern("d/MM/yyyy").format(date);
 
 	}
 }

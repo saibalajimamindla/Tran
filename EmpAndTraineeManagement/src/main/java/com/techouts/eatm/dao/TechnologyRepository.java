@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.techouts.eatm.model.Technology;
+import com.techouts.eatm.entity.Technology;
 
 @Repository
 public interface TechnologyRepository extends JpaRepository<Technology, Long> {

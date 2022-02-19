@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.techouts.eatm.converter.TechnologyConvertor;
 import com.techouts.eatm.dao.TechnologyRepository;
 import com.techouts.eatm.dto.TechnologyDto;
+import com.techouts.eatm.entity.Technology;
 import com.techouts.eatm.exception.ResourseNotFound;
-import com.techouts.eatm.model.Technology;
 
 @Service
 public class TechnologyServiceImpl implements TechnologyService {
@@ -83,6 +83,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 
 	}
 
+	@Override
 	public String[] getTechnologysAsArray() {
 		List<Technology> technologies = technologyDao.findAll();
 		String[] tech = new String[technologies.size()];

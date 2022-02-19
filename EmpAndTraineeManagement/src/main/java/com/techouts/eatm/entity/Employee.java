@@ -1,6 +1,7 @@
-package com.techouts.eatm.model;
+package com.techouts.eatm.entity;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -33,8 +35,11 @@ public class Employee {
 	private LocalDate trainingEndDate;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "track_id", referencedColumnName = "id")
+	@JoinColumn(name = "track_id", referencedColumnName = "track_id")
 	private TrainingTrack trainingTrack;
+	
+	@OneToMany(mappedBy = "employee")
+    Set<EmployeeTechnologyRating> ratings;
 
 	public long getEmpId() {
 		return empId;

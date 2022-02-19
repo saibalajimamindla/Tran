@@ -2,6 +2,7 @@ package com.techouts.eatm.service;
 
 import java.util.List;
 
+import com.techouts.eatm.dto.EmployeeDetailsDto;
 import com.techouts.eatm.dto.EmployeeDto;
 
 public interface EmployeeService {
@@ -16,4 +17,6 @@ public interface EmployeeService {
 	public List<EmployeeDto> getAllEmployees();
 
 	public List<EmployeeDto> getAllEmployeesByTrack(String track);
+
+	EmployeeDetailsDto rateEmployee(Long id);
 }

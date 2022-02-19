@@ -3,8 +3,10 @@ package com.techouts.eatm.service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,13 +15,18 @@ import org.springframework.stereotype.Service;
 
 import com.techouts.eatm.converter.EmployeeConvertor;
 import com.techouts.eatm.dao.EmployeeRepository;
+import com.techouts.eatm.dao.EmployeeTechnologyRatingRepository;
 import com.techouts.eatm.dao.HolidayRepository;
 import com.techouts.eatm.dao.TrainingTrackRepository;
+import com.techouts.eatm.dto.EmployeeDetailsDto;
 import com.techouts.eatm.dto.EmployeeDto;
+import com.techouts.eatm.entity.Employee;
+import com.techouts.eatm.entity.EmployeeTechnologyRating;
+import com.techouts.eatm.entity.Holiday;
+import com.techouts.eatm.entity.Technology;
+import com.techouts.eatm.entity.TrainingTrack;
 import com.techouts.eatm.exception.ResourseNotFound;
-import com.techouts.eatm.model.Employee;
-import com.techouts.eatm.model.Holiday;
-import com.techouts.eatm.model.TrainingTrack;
+import com.techouts.eatm.model.TechnolgyRating;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -39,7 +46,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 	HolidayRepository holidayDao;
 
 	@Autowired
-	HolidayServiceImpl holidayService;
+	HolidayService holidayService;
+
+	@Autowired
+	TrainingTrackService trainingTrackService;
+
+	@Autowired
+	EmployeeTechnologyRatingRepository employeeTechnologyRatingDao;
 
 	@Override
 	public EmployeeDto saveEmployee(EmployeeDto dto) {
@@ -67,6 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			} else {
 				employee.setTrainingEndDate(endDateCalculatorWithoutHolidays(employee.getDateOfJoining(),
 						employee.getTrainingTrack().getTrackDuration()));
+
 			}
 
 			return employeeConvertor.modelToDto(employeeDao.save(employee));
@@ -79,7 +93,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			List<Holiday> holidays = checkForHolidays();
 			if (!holidays.isEmpty()) {
 				checkEmployee.setTrainingEndDate(endDateCalculatorWithHolidays(checkEmployee.getDateOfJoining(),
-						checkEmployee.getTrainingTrack().getTrackDuration(), holidayService.getDatesFromHolidays(holidays)));
+						checkEmployee.getTrainingTrack().getTrackDuration(),
+						holidayService.getDatesFromHolidays(holidays)));
 			} else {
 				checkEmployee.setTrainingEndDate(endDateCalculatorWithoutHolidays(checkEmployee.getDateOfJoining(),
 						checkEmployee.getTrainingTrack().getTrackDuration()));
@@ -97,7 +112,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setTrainingTrack(null);
 			Employee emp = employeeDao.save(employee);
 			employeeDao.delete(emp);
-
 			return employee.getEmpName() + " with " + employee.getEmpId() + " removed successfully";
 		} else {
 			throw new ResourseNotFound("employeee with id  " + id + " not found");
@@ -200,5 +214,59 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return null;
 		}
 
+	}
+
+	@Override
+	public EmployeeDetailsDto rateEmployee(Long id) {
+		Employee checkEmployee = employeeDao.getById(id);
+		if (checkEmployee != null) {
+
+			EmployeeDetailsDto employeeDetails = new EmployeeDetailsDto();
+			employeeDetails.setEmployeeDto(employeeConvertor.modelToDto(checkEmployee));
+			;
+
+			List<EmployeeTechnologyRating> technologyRatings = employeeTechnologyRatingDao
+					.getbyEmpid(checkEmployee.getId());
+
+			List<Technology> technologies = trainingTrackService
+					.getTechnologiesFromtrack(checkEmployee.getTrainingTrack());
+
+			System.out.println(technologies.size());
+
+			System.out.println(technologyRatings.size());
+
+			List<TechnolgyRating> ratings = new ArrayList<>();
+
+			for (Technology technology : technologies) {
+
+				ratings.add(new TechnolgyRating(technology.getTechnologyName(),
+						getTechnologyrating(technologyRatings, technology)));
+			}
+
+			employeeDetails.setTechnolgyRatings(ratings);
+
+			return employeeDetails;
+		} else {
+			throw new ResourseNotFound("employeee with id  " + id + " not found");
+		}
+
+	}
+
+	public int getTechnologyrating(List<EmployeeTechnologyRating> ratings, Technology technology) {
+
+		int rating = 0;
+
+		List<EmployeeTechnologyRating> value = ratings.stream()
+				.filter(techRating -> techRating.getTechnology().equals(technology)).collect(Collectors.toList());
+		if (!value.isEmpty()) {
+			rating = value.get(0).getRating();
+		}
+
+		return rating;
+	}
+
+	public void removeRatings(Long id) {
+		employeeTechnologyRatingDao.removeEmployeeRatings(id);
+	
 	}
 }

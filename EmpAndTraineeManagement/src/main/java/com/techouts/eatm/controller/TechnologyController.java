@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.dto.TechnologyDto;
-import com.techouts.eatm.service.TechnologyServiceImpl;
+import com.techouts.eatm.service.TechnologyService;
 
 @RestController
 @RequestMapping("/technology")
 public class TechnologyController {
 
 	@Autowired
-	TechnologyServiceImpl technologyService;
+	TechnologyService technologyService;
 
 	@GetMapping("/")
 	@ResponseBody

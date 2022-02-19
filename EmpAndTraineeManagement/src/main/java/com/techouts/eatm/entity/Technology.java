@@ -1,4 +1,4 @@
-package com.techouts.eatm.model;
+package com.techouts.eatm.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 public class Technology {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, name = "tech_id")
 	private long id;
 
 	@Column(unique = true, name = "technology_name")
@@ -31,7 +33,10 @@ public class Technology {
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "technologies")
 	private Set<TrainingTrack> tracks = new HashSet<>();
-
+	
+	@OneToMany(mappedBy = "technology")
+    Set<EmployeeTechnologyRating> ratings;
+	
 	public Technology() {
 		super();
 	}
@@ -75,6 +80,7 @@ public class Technology {
 	public void setTechnologyduration(long technologyduration) {
 		this.technologyduration = technologyduration;
 	}
+
 
 	@Override
 	public String toString() {

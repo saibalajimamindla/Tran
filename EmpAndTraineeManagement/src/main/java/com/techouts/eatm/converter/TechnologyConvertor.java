@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.techouts.eatm.dto.TechnologyDto;
-import com.techouts.eatm.model.Technology;
+import com.techouts.eatm.entity.Technology;
 
 @Component
 public class TechnologyConvertor {

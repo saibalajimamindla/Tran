@@ -7,8 +7,8 @@ import java.util.Set;
 import org.springframework.stereotype.Component;
 
 import com.techouts.eatm.dto.TrainingTrackDto;
-import com.techouts.eatm.model.Technology;
-import com.techouts.eatm.model.TrainingTrack;
+import com.techouts.eatm.entity.Technology;
+import com.techouts.eatm.entity.TrainingTrack;
 
 @Component
 public class TrainingTrackConvertor {

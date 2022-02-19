@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.converter.EmployeeConvertor;
 import com.techouts.eatm.dao.EmployeeRepository;
+import com.techouts.eatm.dao.EmployeeTechnologyRatingRepository;
+import com.techouts.eatm.dto.EmployeeDetailsDto;
 import com.techouts.eatm.dto.EmployeeDto;
-import com.techouts.eatm.service.EmployeeServiceImpl;
+import com.techouts.eatm.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
@@ -24,10 +26,13 @@ public class EmployeeController {
 	EmployeeRepository employeeDao;
 
 	@Autowired
-	EmployeeServiceImpl employeeService;
+	EmployeeService employeeService;
 
 	@Autowired
 	EmployeeConvertor employeeConvertor;
+	
+	@Autowired
+	EmployeeTechnologyRatingRepository employeeTechnologyRatingDao;
 
 	@GetMapping("/")
 	public EmployeeDto getEmployee() {
@@ -39,7 +44,7 @@ public class EmployeeController {
 		return employeeService.saveEmployee(empdto);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public String removeEmployee(@PathVariable Long id) {
 		return employeeService.removeEmployee(id);
 	}
@@ -63,5 +68,17 @@ public class EmployeeController {
 	@GetMapping("/all/{track}")
 	public List<EmployeeDto> getAllEmployees(@PathVariable String track) {
 		return employeeService.getAllEmployeesByTrack(track);
+	}
+	
+	@GetMapping("/rateEmployee/{empid}")
+	public EmployeeDetailsDto rateEmployee(@PathVariable Long empid)
+	{
+		return employeeService.rateEmployee(empid);
+	}
+	
+	@GetMapping("test/{empid}")
+	public void test(@PathVariable Long empid)
+	{
+		employeeTechnologyRatingDao.removeEmployeeRatings(empid);
 	}
 }

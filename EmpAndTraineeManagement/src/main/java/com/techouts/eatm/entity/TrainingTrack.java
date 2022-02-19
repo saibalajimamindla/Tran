@@ -1,4 +1,4 @@
-package com.techouts.eatm.model;
+package com.techouts.eatm.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +21,7 @@ public class TrainingTrack {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(unique = true, name = "track_id")
 	private long id;
 
 	@Column(unique = true, name = "track_name")

@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.techouts.eatm.dto.TrainingTrackDto;
-import com.techouts.eatm.service.TechnologyServiceImpl;
-import com.techouts.eatm.service.TrainingTrackServiceImpl;
+import com.techouts.eatm.service.TechnologyService;
+import com.techouts.eatm.service.TrainingTrackService;
 
 @RestController
 @RequestMapping("/trainingtrack")
 public class TrainingTrackController {
 
 	@Autowired
-	TrainingTrackServiceImpl trainingTrackService;
+	TrainingTrackService trainingTrackService;
 
 	@Autowired
-	TechnologyServiceImpl technologyService;
+	TechnologyService technologyService;
 
 	@GetMapping("/")
 	public TrainingTrackDto getTraingTrack() {
