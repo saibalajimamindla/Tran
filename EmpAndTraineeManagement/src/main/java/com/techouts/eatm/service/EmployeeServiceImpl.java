@@ -24,9 +24,16 @@ import com.techouts.eatm.entity.Employee;
 import com.techouts.eatm.entity.EmployeeTechnologyRating;
 import com.techouts.eatm.entity.Holiday;
 import com.techouts.eatm.entity.Technology;
+import com.techouts.eatm.entity.TechnologyRatingKey;
 import com.techouts.eatm.entity.TrainingTrack;
+import com.techouts.eatm.enums.Ratings;
 import com.techouts.eatm.exception.ResourseNotFound;
 import com.techouts.eatm.model.TechnolgyRating;
+
+/**
+ * @author sai Balaji
+ *
+ */
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -53,7 +60,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	EmployeeTechnologyRatingRepository employeeTechnologyRatingDao;
-
+	
+	/*
+	 * method to save the employee
+	 * @param employeeDto Object
+	 * @return saved employee
+	 */
 	@Override
 	public EmployeeDto saveEmployee(EmployeeDto dto) {
 		Employee checkEmployee = employeeDao.getById(dto.getEmpId());
@@ -82,8 +94,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 						employee.getTrainingTrack().getTrackDuration()));
 
 			}
+			Employee savedEmployee = employeeDao.save(employee);
 
-			return employeeConvertor.modelToDto(employeeDao.save(employee));
+			createEmployeeRating(savedEmployee);
+			return employeeConvertor.modelToDto(savedEmployee);
 		} else {
 			checkEmployee.setEmpName(dto.getEmpName());
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -111,6 +125,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (employee != null) {
 			employee.setTrainingTrack(null);
 			Employee emp = employeeDao.save(employee);
+			removeRatings(employee.getId());
 			employeeDao.delete(emp);
 			return employee.getEmpName() + " with " + employee.getEmpId() + " removed successfully";
 		} else {
@@ -216,6 +231,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	}
 
+	public void createEmployeeRating(Employee employee) {
+		List<Technology> technologies = trainingTrackService.getTechnologiesFromtrack(employee.getTrainingTrack());
+
+		List<EmployeeTechnologyRating> ratings = new ArrayList<>();
+
+		for (Technology technology : technologies) {
+
+			ratings.add(new EmployeeTechnologyRating(new TechnologyRatingKey(employee.getId(), technology.getId()),
+					technology, employee, Ratings.DEFAULTVALUE.getRating()));
+		}
+		employeeTechnologyRatingDao.saveAll(ratings);
+	}
+
 	@Override
 	public EmployeeDetailsDto rateEmployee(Long id) {
 		Employee checkEmployee = employeeDao.getById(id);
@@ -259,7 +287,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		List<EmployeeTechnologyRating> value = ratings.stream()
 				.filter(techRating -> techRating.getTechnology().equals(technology)).collect(Collectors.toList());
 		if (!value.isEmpty()) {
-			rating = value.get(0).getRating();
+			/* rating = value.get(0).getRating(); */
 		}
 
 		return rating;
@@ -267,6 +295,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public void removeRatings(Long id) {
 		employeeTechnologyRatingDao.removeEmployeeRatings(id);
-	
+
 	}
 }

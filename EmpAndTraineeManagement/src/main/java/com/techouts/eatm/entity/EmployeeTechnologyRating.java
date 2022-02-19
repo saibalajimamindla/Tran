@@ -9,35 +9,33 @@ import javax.persistence.MapsId;
 
 @Entity
 public class EmployeeTechnologyRating {
-	
+
 	@EmbeddedId
 	TechnologyRatingKey id;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @MapsId("techid")
-    @JoinColumn(name = "tech_id")
+	@MapsId("techid")
+	@JoinColumn(name = "tech_id")
 	Technology technology;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
-    @MapsId("empid")
-    @JoinColumn(name = "emp_id")
+	@MapsId("empid")
+	@JoinColumn(name = "emp_id")
 	Employee employee;
-	
+
 	int rating;
 
 	public EmployeeTechnologyRating() {
 		super();
 	}
-	
 
-	public EmployeeTechnologyRating( Technology technology, Employee employee, int rating) {
+	public EmployeeTechnologyRating(TechnologyRatingKey id, Technology technology, Employee employee, int rating) {
 		super();
-		this.id = new TechnologyRatingKey(employee.getEmpId(), technology.getId());
+		this.id = id;
 		this.technology = technology;
 		this.employee = employee;
 		this.rating = rating;
 	}
-
 
 	public TechnologyRatingKey getId() {
 		return id;
@@ -71,5 +69,4 @@ public class EmployeeTechnologyRating {
 		this.rating = rating;
 	}
 
-	
 }
