@@ -21,6 +21,8 @@ public class EmployeeDto implements Serializable {
 	private String trainingTrack;
 
 	private String trainingEndDate;
+	
+	private Double averageRating;
 
 	public long getEmpId() {
 		return empId;
@@ -64,6 +66,14 @@ public class EmployeeDto implements Serializable {
 
 	public EmployeeDto() {
 		super();
+	}
+
+	public Double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(Double averageRating) {
+		this.averageRating = averageRating;
 	}
 
 }

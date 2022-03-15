@@ -5,11 +5,13 @@ import java.util.List;
 
 import com.techouts.eatm.model.TechnolgyRating;
 
+/**
+ * @author Balaji
+ *
+ */
 public class EmployeeDetailsDto implements Serializable {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	private EmployeeDto employeeDto;

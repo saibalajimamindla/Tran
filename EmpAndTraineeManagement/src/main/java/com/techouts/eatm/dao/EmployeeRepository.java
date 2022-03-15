@@ -24,5 +24,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	@Query(value = "select * from employees where track_id = :id" ,nativeQuery = true)
 	@Transactional
-	public List<Employee> getByTrack(long id);
+	public List<Employee> getByTrack(Long id);
 }

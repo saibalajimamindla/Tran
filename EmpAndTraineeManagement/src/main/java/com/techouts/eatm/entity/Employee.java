@@ -33,6 +33,9 @@ public class Employee {
 
 	@Column(name = "training_end_date")
 	private LocalDate trainingEndDate;
+	
+	@Column(name = "average_rating")
+	private Double averageRating;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "track_id", referencedColumnName = "track_id")
@@ -87,6 +90,22 @@ public class Employee {
 
 	public void setTrainingEndDate(LocalDate trainingEndDate) {
 		this.trainingEndDate = trainingEndDate;
+	}
+	
+	public Double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(Double averageRating) {
+		this.averageRating = averageRating;
+	}
+
+	public Set<EmployeeTechnologyRating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Set<EmployeeTechnologyRating> ratings) {
+		this.ratings = ratings;
 	}
 
 	public Employee() {

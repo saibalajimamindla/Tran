@@ -8,8 +8,19 @@ import org.springframework.stereotype.Service;
 
 import com.techouts.eatm.entity.Holiday;
 
+/**
+ * @author Balaji
+ *
+ */
 @Service
 public class HolidayServiceImpl implements HolidayService {
+	/*
+	 * method to get list of holiday dates
+	 * 
+	 * @param holidays- list of holiday objects
+	 * 
+	 * @return list of dates
+	 */
 	
 	@Override
 	public List<LocalDate> getDatesFromHolidays(List<Holiday> holidays)

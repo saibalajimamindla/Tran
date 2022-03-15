@@ -8,6 +8,8 @@ public class TechnolgyRating implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private long technologyId;
 
 	private String technology;
 
@@ -17,9 +19,10 @@ public class TechnolgyRating implements Serializable {
 		super();
 	}
 
-	public TechnolgyRating(String technology, int rating) {
+	public TechnolgyRating(String technology, long technologyId, int rating) {
 		super();
 		this.technology = technology;
+		this.technologyId = technologyId;
 		this.rating = rating;
 	}
 
@@ -37,6 +40,14 @@ public class TechnolgyRating implements Serializable {
 
 	public void setRating(int rating) {
 		this.rating = rating;
+	}
+
+	public long getTechnologyId() {
+		return technologyId;
+	}
+
+	public void setTechnologyId(long technologyId) {
+		this.technologyId = technologyId;
 	}
 
 }

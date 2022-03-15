@@ -20,6 +20,7 @@ public class EmployeeConvertor {
 		dto.setDateOfJoining(dateFormatter(employee.getDateOfJoining()));
 		dto.setTrainingTrack(employee.getTrainingTrack().getTrackName());
 		dto.setTrainingEndDate(dateFormatter(employee.getTrainingEndDate()));
+		dto.setAverageRating(employee.getAverageRating());
 		return dto;
 
 	}
@@ -35,6 +36,7 @@ public class EmployeeConvertor {
 			dto.setDateOfJoining(dateFormatter(employee.getDateOfJoining()));
 			dto.setTrainingTrack(employee.getTrainingTrack().getTrackName());
 			dto.setTrainingEndDate(dateFormatter(employee.getTrainingEndDate()));
+			dto.setAverageRating(employee.getAverageRating());
 			dtolist.add(dto);
 
 		}

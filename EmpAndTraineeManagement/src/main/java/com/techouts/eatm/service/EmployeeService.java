@@ -4,7 +4,12 @@ import java.util.List;
 
 import com.techouts.eatm.dto.EmployeeDetailsDto;
 import com.techouts.eatm.dto.EmployeeDto;
+import com.techouts.eatm.dto.EmployeeTechnologyRatingDto;
 
+/**
+ * @author Balaji
+ *
+ */
 public interface EmployeeService {
 	public EmployeeDto saveEmployee(EmployeeDto dto);
 
@@ -18,5 +23,9 @@ public interface EmployeeService {
 
 	public List<EmployeeDto> getAllEmployeesByTrack(String track);
 
-	EmployeeDetailsDto rateEmployee(Long id);
+	public EmployeeDetailsDto empTechRating(Long id);
+
+	public EmployeeTechnologyRatingDto technologyRating(Long empid, Long techid);
+
+	public String updateRating(Long empid, Long techid, int rating);
 }

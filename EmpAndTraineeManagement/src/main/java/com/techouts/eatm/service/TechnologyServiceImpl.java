@@ -11,6 +11,10 @@ import com.techouts.eatm.dto.TechnologyDto;
 import com.techouts.eatm.entity.Technology;
 import com.techouts.eatm.exception.ResourseNotFound;
 
+/**
+ * @author Balaji
+ *
+ */
 @Service
 public class TechnologyServiceImpl implements TechnologyService {
 	@Autowired
@@ -83,7 +87,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 
 	}
 
-	@Override
+	
 	public String[] getTechnologysAsArray() {
 		List<Technology> technologies = technologyDao.findAll();
 		String[] tech = new String[technologies.size()];
